@@ -1,0 +1,22 @@
+name: Make launcher executable
+on:
+  push:
+    paths:
+      - "Start Netmapper.command"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  chmod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set executable bit
+        run: |
+          git update-index --chmod=+x "Start Netmapper.command"
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@users.noreply.github.com"
+            git commit -m "Make Start Netmapper.command executable"
+            git push
+          fi
