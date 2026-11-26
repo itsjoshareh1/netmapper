@@ -6,24 +6,28 @@ Scan your own network, list every device (IP, MAC, hostname) and see which commo
 
 > Only scan networks you own or have permission to scan. The tool refuses public IP ranges and anything bigger than 1024 addresses.
 
-## Run it (Mac)
+## Run it (Mac, no Terminal needed)
+
+1. On this page click **Code > Download ZIP**.
+2. Double-click the ZIP to unzip it.
+3. Open the folder and double-click **Start Netmapper.command**.
+   - First time only: if macOS says it cannot verify the file, right-click it, choose **Open**, then **Open** again.
+   - First launch takes about a minute while it sets itself up.
+4. Your browser opens the app. Your network is prefilled. Press **Scan**.
+5. When macOS asks to allow access to devices on your local network, click **Allow**. Without it the scan finds nothing.
+
+Close the Terminal window that opened to stop the app.
+
+If you have no Python, the launcher opens python.org. Install it and double-click the file again.
+
+### For developers
 
 ```bash
-git clone https://github.com/itsjoshareh1/netmapper.git
-cd netmapper
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python -m streamlit run app.py
-```
-
-Your browser opens at `localhost:8501`. The subnet is auto-detected (usually a `192.168.x.0/24`). Press **Scan**.
-
-Command line and tests:
-
-```bash
-python netmapper.py                  # scan auto-detected subnet
-python netmapper.py 192.168.1.0/24   # or choose one
+python -m streamlit run app.py      # web app
+python netmapper.py                 # command line, auto-detects subnet
+python netmapper.py 192.168.1.0/24  # or choose one
 pytest
 ```
 
